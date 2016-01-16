@@ -223,3 +223,11 @@ footer p {
         text-align: center
     }
 }
+
+.page-header{
+    margin-top: 10px !important;
+}
+.cwell {
+    margin-bottom: 0px;
+    border: none;
+}
