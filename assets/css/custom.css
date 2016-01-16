@@ -32,7 +32,7 @@ body > .navbar {
 }
 
 #banner {
-    min-height: 300px;
+
     border-bottom: none
 }
 
@@ -231,4 +231,91 @@ footer p {
 .cwell {
     margin-bottom: 0px;
     border: none;
+}
+
+
+footer {
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: center;
+    padding: 30px 0;
+    margin-top: 70px;
+    border-top: 1px solid #e5e5e5;
+    background-color: #f5f5f5;
+}
+.footer p {
+    margin-bottom: 0;
+    color: #777;
+}
+.footer-social-links {
+    margin: 10px 0;
+
+}
+.footer-social-links li:first-child {
+    padding-left: 0;
+}
+.footer-social-links li {
+    display: inline;
+    padding: 0 2px;
+}
+.footer-social-links li a{
+    text-decoration: none !important;
+}
+#footer {
+    margin-bottom: 20px;
+}
+
+#footer .links a {
+    margin-right: 10px;
+}
+
+.social {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+.social a i {
+    display: inline-block;
+    width: 40px;
+    height: 40px;
+    font-size: 16px;
+    line-height: 40px;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    -webkit-transition: all 1.5s ease;
+    transition: all 1.5s ease;
+
+    width: 30px;
+    height: 30px;
+    margin-right: 2px;
+    margin-left: 2px;
+    font-size: 12px;
+    line-height: 30px;
+    border-radius: 50px;
+}
+
+
+.social a.facebook i{
+    background:#1e78ae;
+}
+
+.social a.twitter i{
+    background:#1ba1e2;
+}
+
+.social a.google-plus i{
+    background:#f22d0c;
+}
+
+.social a.linkedin i{
+    background:#2d93cf;
+}
+
+.social a.pinterest i{
+    background:#dd1617;
+}
+
+.social a:hover i{
+    background:#000;
 }
