@@ -112,14 +112,14 @@
         }
 
         self.checkboxSelection = 2;
-        self.inputButtons = [];
+
 
         self.PlayClicked = function(b){
             //self.input.size = b;
             //alert("size: " + self.input.size + " ops: " + self.input.ops + " level: " + self.input.level);
             getCustomKenken().then(function(success){
                 self.viewBoard = success.data;
-
+                self.inputButtons = [];
                 for(var i = 1; i<= self.viewBoard.length; i++){
                     self.inputButtons.push(i);
                 }
