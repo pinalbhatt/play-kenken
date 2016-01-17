@@ -114,18 +114,49 @@
         self.checkboxSelection = 2;
 
 
+        self.check = function(){
+            console.log(self.answers);
+        }
         self.PlayClicked = function(b){
             //self.input.size = b;
             //alert("size: " + self.input.size + " ops: " + self.input.ops + " level: " + self.input.level);
             getCustomKenken().then(function(success){
                 self.viewBoard = success.data;
                 self.inputButtons = [];
+                self.answers = new Array(self.viewBoard.length);
                 for(var i = 1; i<= self.viewBoard.length; i++){
                     self.inputButtons.push(i);
+                    self.answers[i] = new Array(self.viewBoard.length);
                 }
+
             }, function(error){
                 alert(error);
             });
+
+        }
+
+        self.isNumber = function($event){
+            $event = ($event) ? $event : window.event;
+            var charCode = ($event.which) ? $event.which : $event.keyCode;
+            if (charCode > 31 && (charCode < 49 || charCode > 57 - (9-self.input.size))) {
+                $event.preventDefault();
+            }
+        }
+
+        self.selectCell = function(pos){
+            var id = "answerTxt" + pos;
+            document.getElementById(id).focus();
+        }
+
+        self.selectAnswerBox =function(pos){
+            self.currentAnswerBox  = "answerTxt" + pos;
+            self.currentPosition = pos;
+        }
+
+        self.inputButtonClicked = function(val){
+            document.getElementById(self.currentAnswerBox).value = val;
+            document.getElementById("btnCheckAnswer").focus();
+
 
         }
 

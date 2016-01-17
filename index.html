@@ -119,18 +119,24 @@
                         <div class="panel-body">
                             <div class="row well well-sm cwell">
                                 <div class="btn-group btn-group-justified">
-                                    <label ng-repeat="sizeOp in kc.sizeOptions" class="btn btn-success" ng-model="kc.input.size" uib-btn-radio="'{{sizeOp.value}}'" >{{sizeOp.label}}</label>
+                                    <label ng-repeat="sizeOp in kc.sizeOptions" class="btn btn-success"
+                                           ng-model="kc.input.size"
+                                           uib-btn-radio="'{{sizeOp.value}}'">{{sizeOp.label}}</label>
                                 </div>
                             </div>
                             <div class="row well well-sm cwell">
                                 <div class="btn-group btn-group-justified">
-                                    <label ng-repeat="opOp in kc.operatorsOptions" class="btn btn-success" ng-model="kc.input.ops" uib-btn-radio="'{{opOp.value}}'" >{{opOp.label}}</label>
+                                    <label ng-repeat="opOp in kc.operatorsOptions" class="btn btn-success"
+                                           ng-model="kc.input.ops"
+                                           uib-btn-radio="'{{opOp.value}}'">{{opOp.label}}</label>
                                 </div>
 
                             </div>
                             <div class="row well well-sm cwell">
                                 <div class="btn-group btn-group-justified">
-                                    <label ng-repeat="lvlOp in kc.levelOptions" class="btn btn-success" ng-model="kc.input.level" uib-btn-radio="'{{lvlOp.value}}'" >{{lvlOp.label}}</label>
+                                    <label ng-repeat="lvlOp in kc.levelOptions" class="btn btn-success"
+                                           ng-model="kc.input.level"
+                                           uib-btn-radio="'{{lvlOp.value}}'">{{lvlOp.label}}</label>
                                 </div>
                             </div>
                             <div class="row well well-sm cwell pull-right">
@@ -139,25 +145,32 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8 col-md-8">
-                    <div>
+                <div class="col-lg-8 col-md-8 ">
+                    <div class="text-center">
                         <table cellspacing="0" cellpadding="0" class="rcTable">
                             <tr>
                                 <td ng-repeat="b in kc.inputButtons" style="padding-bottom: 5px; text-align: center">
-                                    <button type="button" class="btn btn-primary btn-lg btn-circle">{{b}}</button>
+                                    <button type="button" class="btn btn-primary btn-lg btn-circle" ng-click="kc.inputButtonClicked(b)">{{b}}</button>
                                     <br/>
                                 </td>
                             </tr>
                             <tr ng-repeat="row in kc.viewBoard" class="rc">
-                                <td ng-repeat="col in row" ng-class="{rc: true, bdr: true, bbtop: col.top===1, bbrgt: col.rgt===1, bbbtm: col.btm===1, bblft: col.lft===1}">
+                                <td ng-repeat="col in row"
+                                    ng-class="{rc: true, bdr: true, bbtop: col.top===1, bbrgt: col.rgt===1, bbbtm: col.btm===1, bblft: col.lft===1, activeCell: col.position === kc.currentPosition}"
+                                    ng-click="kc.selectCell(col.position)"
+                                >
                                     <span class="hint badge">{{col.hint}}</span>
                                     <br/>
                                     <div style="text-align: center">
-                                        <input type="text" size="5"/>
+                                        <input class="input-answer" type="text" size="5" maxlength="1"
+                                               id="answerTxt{{col.position}}" name="answerTxt{{col.position}}"
+                                               ng-model="kc.answers[$parent.$index][$index]"
+                                               ng-keypress="kc.isNumber($event)" ng-focus="kc.selectAnswerBox(col.position)" />
                                     </div>
                                 </td>
                             </tr>
                         </table>
+                        <button id="btnCheckAnswer" class="btn btn-primary bth-lg" ng-click="kc.check()"> Check</button>
                     </div>
                 </div>
             </div>

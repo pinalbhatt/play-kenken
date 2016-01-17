@@ -327,10 +327,10 @@ footer {
 }
 
 .rcTable {
-    margin: 0;
-    padding: 0;
     border-spacing: 0;
-    border-collapse: collapse
+    border-collapse: collapse;
+    margin-left:auto;
+    margin-right:auto;
 }
 
 .rc {
@@ -369,8 +369,10 @@ footer {
     margin-left: 2px;
 }
 
-input{
-    border: none
+.input-answer{
+    border: none;
+    text-align: center;
+    font-size: larger;
 }
 
 .btn-circle {
@@ -387,3 +389,8 @@ input{
     font-weight: bold;
     border-color: #000;
 }
+
+.activeCell {
+    background-color: #777777;
+}
+
