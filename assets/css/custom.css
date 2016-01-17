@@ -17,7 +17,7 @@ body > .navbar {
     }
 }
 
-#home {
+/*#home {
     padding-top: 0
 }
 
@@ -29,28 +29,21 @@ body > .navbar {
     display: inline;
     margin: 0 10px;
     height: 100%
-}
+}*/
 
 #banner {
 
     border-bottom: none
 }
 
-.table-of-contents {
+/*.table-of-contents {
     margin-top: 1em
-}
+}*/
 
 .page-header h1 {
     font-size: 4em
 }
 
-.bs-docs-section {
-    margin-top: 6em
-}
-
-.bs-docs-section h1 {
-    padding-top: 100px
-}
 
 .bs-component {
     position: relative
@@ -318,4 +311,79 @@ footer {
 
 .social a:hover i{
     background:#000;
+}
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+    display: none !important;
+}
+
+.bdr {
+    border: 1px dashed #033c73;
+}
+
+.rcTable {
+    margin: 0;
+    padding: 0;
+    border-spacing: 0;
+    border-collapse: collapse
+}
+
+.rc {
+    margin: 0;
+    padding: 0;
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 60px;
+    min-width: 60px;
+    max-width: 60px;
+    height: 60px;
+    min-height: 60px;
+    max-height: 60px;
+}
+
+.bbtop {
+    border-top: 3px solid #033c73;
+}
+
+.bbrgt {
+    border-right: 3px solid #033c73;
+}
+
+.bbbtm {
+    border-bottom: 3px solid #033c73;
+}
+
+.bblft {
+    border-left: 3px solid #033c73;
+}
+
+.hint {
+    font-size: smaller;
+    font-weight: bold;
+    margin-top: -10px;
+    margin-left: 2px;
+}
+
+input{
+    border: none
+}
+
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding: 6px 0;
+    font-size: 12px;
+    line-height: 1.42;
+    border-radius: 15px;
+}
+
+.btn-circle:hover {
+    font-weight: bold;
+    border-color: #000;
 }

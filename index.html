@@ -35,7 +35,7 @@
 
     </script>
 </head>
-<body>
+<body ng-app="kenApp" ng-controller="kenController as kc">
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -67,12 +67,7 @@
             </div>
             <div class="col-lg-4 col-md-5 col-sm-6">
                 <div class="sponsor" style="max-height: 120px">
-                    <!-- PBDeskIO-Responsive2 -->
-                    <ins class="adsbygoogle"
-                         style="display:block"
-                         data-ad-client="ca-pub-4686631795727964"
-                         data-ad-slot="2916833545"
-                         data-ad-format="auto"></ins>
+
                 </div>
             </div>
         </div>
@@ -114,83 +109,56 @@
                 </div>
 
 
-
             </div>
             <div class="col-lg-12">
-                <div class="col-lg-4">
+                <div class="col-lg-4 col-md-4">
                     <div class="panel panel-info">
                         <div class="panel-heading">
                             <h3 class="panel-title">Select Size, Operations & Level</h3>
                         </div>
                         <div class="panel-body">
                             <div class="row well well-sm cwell">
-                                <div class="btn-group btn-group-justified" data-toggle="buttons">
-                                    <label class="btn btn-success active">
-                                        <input type="radio" name="options" id="option1" autocomplete="off">3X3
-                                    </label>
-                                    <label class="btn btn-success">
-                                        <input type="radio" name="options" id="option2" autocomplete="off">4X4
-                                    </label>
-                                    <label class="btn btn-success">
-                                        <input type="radio" name="options" id="option3" autocomplete="off">5X5
-                                    </label>
-                                    <label class="btn btn-success">
-                                        <input type="radio" name="options" id="option3" autocomplete="off">6X6
-                                    </label>
-                                    <label class="btn btn-success">
-                                        <input type="radio" name="options" id="option3" autocomplete="off">7X7
-                                    </label>
-                                    <label class="btn btn-success">
-                                        <input type="radio" name="options" id="option3" autocomplete="off">8X8
-                                    </label>
-                                    <label class="btn btn-success">
-                                        <input type="radio" name="options" id="option3" autocomplete="off">9X9
-                                    </label>
+                                <div class="btn-group btn-group-justified">
+                                    <label ng-repeat="sizeOp in kc.sizeOptions" class="btn btn-success" ng-model="kc.input.size" uib-btn-radio="'{{sizeOp.value}}'" >{{sizeOp.label}}</label>
                                 </div>
                             </div>
                             <div class="row well well-sm cwell">
-                                <div class="btn-group btn-group-justified" data-toggle="buttons">
-                                    <label class="btn btn-warning active">
-                                        <input type="radio" name="options" id="option1" autocomplete="off"> +
-                                    </label>
-                                    <label class="btn btn-warning">
-                                        <input type="radio" name="options" id="option2" autocomplete="off"> + -
-                                    </label>
-                                    <label class="btn btn-warning">
-                                        <input type="radio" name="options" id="option3" autocomplete="off">+ - x
-                                    </label>
-                                    <label class="btn btn-warning">
-                                        <input type="radio" name="options" id="option3" autocomplete="off">+ - x /
-                                    </label>
+                                <div class="btn-group btn-group-justified">
+                                    <label ng-repeat="opOp in kc.operatorsOptions" class="btn btn-success" ng-model="kc.input.ops" uib-btn-radio="'{{opOp.value}}'" >{{opOp.label}}</label>
                                 </div>
+
                             </div>
                             <div class="row well well-sm cwell">
-                                <div class="btn-group btn-group-justified" data-toggle="buttons">
-                                    <label class="btn btn-danger active">
-                                        <input type="radio" name="options" id="option1" autocomplete="off"> Beginners
-                                    </label>
-                                    <label class="btn btn-danger">
-                                        <input type="radio" name="options" id="option2" autocomplete="off"> Easy
-                                    </label>
-                                    <label class="btn btn-danger">
-                                        <input type="radio" name="options" id="option3" autocomplete="off"> Medium
-                                    </label>
-                                    <label class="btn btn-danger">
-                                        <input type="radio" name="options" id="option3" autocomplete="off"> Hard
-                                    </label>
-                                    <label class="btn btn-danger">
-                                        <input type="radio" name="options" id="option3" autocomplete="off"> Prodigy
-                                    </label>
+                                <div class="btn-group btn-group-justified">
+                                    <label ng-repeat="lvlOp in kc.levelOptions" class="btn btn-success" ng-model="kc.input.level" uib-btn-radio="'{{lvlOp.value}}'" >{{lvlOp.label}}</label>
                                 </div>
                             </div>
                             <div class="row well well-sm cwell pull-right">
-                                <button class="btn btn-primary bth-lg"> Play </button>
+                                <button class="btn btn-primary bth-lg" ng-click="kc.PlayClicked()"> Play</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="col-lg-8">
-                    &nbsp;
+                <div class="col-lg-8 col-md-8">
+                    <div>
+                        <table cellspacing="0" cellpadding="0" class="rcTable">
+                            <tr>
+                                <td ng-repeat="b in kc.inputButtons" style="padding-bottom: 5px; text-align: center">
+                                    <button type="button" class="btn btn-primary btn-lg btn-circle">{{b}}</button>
+                                    <br/>
+                                </td>
+                            </tr>
+                            <tr ng-repeat="row in kc.viewBoard" class="rc">
+                                <td ng-repeat="col in row" ng-class="{rc: true, bdr: true, bbtop: col.top===1, bbrgt: col.rgt===1, bbbtm: col.btm===1, bblft: col.lft===1}">
+                                    <span class="hint badge">{{col.hint}}</span>
+                                    <br/>
+                                    <div style="text-align: center">
+                                        <input type="text" size="5"/>
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
@@ -213,11 +181,22 @@
 
                 <div class="container">
                     <p><b>PBDesk | Kenken</b> - Play kenken online for free</p>
-                    <p>Concept perceived, designed and developed by <a href="https://plus.google.com/116495447274977757345?rel=author"><b>Pinal Bhatt</b></a>.</p>
-                    <p>My Website: <b><a target="_blank" href="http://www.PBDesk.io">PBDesk.IO</a> - </b> From the desk of Pinal Bhatt.</p>
+                    <p>Concept perceived, designed and developed by <a
+                            href="https://plus.google.com/116495447274977757345?rel=author"><b>Pinal Bhatt</b></a>.</p>
+                    <p>My Website: <b><a target="_blank" href="http://www.PBDesk.io">PBDesk.IO</a> - </b> From the desk
+                        of Pinal Bhatt.</p>
                     <p>&nbsp;</p>
                     <p>Follow Me At</p>
-                    <div class="social"><a target="_blank" class="twitter" href="http://twitter.com/PBDesk"><i class="fa fa-twitter"></i></a> <a target="_blank" class="facebook" href="https://www.facebook.com/Go.PBDesk"><i class="fa fa-facebook"></i></a> <a target="_blank" class="google-plus" href="https://plus.google.com/+Pbdesk"><i class="fa fa-google-plus"></i></a> <a target="_blank" class="linkedin" href="http://www.linkedin.com/in/pinalbhatt"><i class="fa fa-linkedin"></i></a> <a target="_blank" class="pinterest" href="https://github.com/PBDesk"><i class="fa fa-github"></i></a></div>
+                    <div class="social"><a target="_blank" class="twitter" href="http://twitter.com/PBDesk"><i
+                            class="fa fa-twitter"></i></a> <a target="_blank" class="facebook"
+                                                              href="https://www.facebook.com/Go.PBDesk"><i
+                            class="fa fa-facebook"></i></a> <a target="_blank" class="google-plus"
+                                                               href="https://plus.google.com/+Pbdesk"><i
+                            class="fa fa-google-plus"></i></a> <a target="_blank" class="linkedin"
+                                                                  href="http://www.linkedin.com/in/pinalbhatt"><i
+                            class="fa fa-linkedin"></i></a> <a target="_blank" class="pinterest"
+                                                               href="https://github.com/PBDesk"><i
+                            class="fa fa-github"></i></a></div>
 
                 </div>
 
@@ -234,7 +213,9 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
         integrity="sha256-KXn5puMvxCw+dAYznun+drMdG1IFl3agK0p/pqT9KAo= sha512-2e8qq0ETcfWRI4HJBzQiA3UoyFk6tbNyG+qSaIBZLyW9Xf3sWZHN/lxe9fTh1U45DpPf07yj94KsUHHWe4Yk1A=="
         crossorigin="anonymous"></script>
-<!--<script src="/assets/js/custom.js"></script>-->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.0.3/ui-bootstrap-tpls.min.js"></script>
+<script src="/assets/js/kenApp.js"></script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
