@@ -35,7 +35,7 @@
 
     </script>
 </head>
-<body ng-app="kenApp" ng-controller="kenController as kc">
+<body ng-app="kenApp" ng-controller="kenController as kc" ng-click="kc.globalClick($event)">
 <div class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -101,7 +101,7 @@
                                     <button type="submit" class="btn btn-default">Submit</button>
                                 </form>
                                 <ul class="nav navbar-nav navbar-right">
-                                    <li><a href="#">Link</a></li>
+                                    <li><a href="#">Roken</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -150,12 +150,13 @@
                         <table cellspacing="0" cellpadding="0" class="rcTable">
                             <tr>
                                 <td ng-repeat="b in kc.inputButtons" style="padding-bottom: 5px; text-align: center">
-                                    <button type="button" class="btn btn-primary btn-lg btn-circle" ng-click="kc.inputButtonClicked(b)">{{b}}</button>
+                                    <button type="button" id="answerBtn{{b}}" ng-disabled="kc.currentPosition == 0"
+                                            class="btn btn-primary btn-lg btn-circle" ng-click="kc.inputButtonClicked(b)">{{b}}</button>
                                     <br/>
                                 </td>
                             </tr>
                             <tr ng-repeat="row in kc.viewBoard" class="rc">
-                                <td ng-repeat="col in row"
+                                <td ng-repeat="col in row" id="answerBox{{col.position}}"
                                     ng-class="{rc: true, bdr: true, bbtop: col.top===1, bbrgt: col.rgt===1, bbbtm: col.btm===1, bblft: col.lft===1, activeCell: col.position === kc.currentPosition}"
                                     ng-click="kc.selectCell(col.position)"
                                 >
@@ -165,7 +166,10 @@
                                         <input class="input-answer" type="text" size="5" maxlength="1"
                                                id="answerTxt{{col.position}}" name="answerTxt{{col.position}}"
                                                ng-model="kc.answers[$parent.$index][$index]"
-                                               ng-keypress="kc.isNumber($event)" ng-focus="kc.selectAnswerBox(col.position)" />
+                                               ng-keypress="kc.isNumber($event)"
+                                               ng-focus="kc.selectAnswerBox(col.position)"
+                                               ng-change="kc.changeAnswerBox()"
+                                        />
                                     </div>
                                 </td>
                             </tr>
