@@ -149,12 +149,15 @@
                     <div class="row" ng-show="kc.gameStatus >= 1">
                         <div class="your-clock"></div>
                     </div>
-                    <div class="row"   ng-show="kc.gameStatus === 2">
+                    <div class="row pull-right" ng-show="kc.gameStatus===1 || kc.gameStatus===2">
+                        <button id="btnPlayPause" class="btn btn-primary bth-lg" ng-click="kc.playPauseGame($event)" > Pause</button>
+                    </div>
+                    <div class="row pull-right"   ng-show="kc.gameStatus === 3">
                         <button id="btnPlayAgain" class="btn btn-primary bth-lg" ng-click="kc.playAgain()"> Play Again</button>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8 ">
-                    <div class="text-center">
+                    <div class="text-center"  ng-show="kc.gameStatus===1 || kc.gameStatus===3">
                         <table cellspacing="0" cellpadding="0" class="rcTable">
                             <tr>
                                 <td ng-repeat="b in kc.inputButtons" style="padding-bottom: 5px; text-align: center">
@@ -185,7 +188,6 @@
                                 </td>
                             </tr>
                         </table>
-                        <button id="btnCheckAnswer" class="btn btn-primary bth-lg" ng-click="kc.check()"> Check</button>
                     </div>
                 </div>
             </div>

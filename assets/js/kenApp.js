@@ -79,7 +79,7 @@
     function kenController(APIService){
         var self = this;
 
-        self.gameStatus = 0; // 0 - not started, 1 - playing, 2- finished
+        self.gameStatus = 0; // 0 - not started, 1 - playing, 2- game paused, 3 - finished
         self.currentPosition = 0;
         self.currentAnswerBox = "";
 
@@ -167,11 +167,9 @@
 
         self.inputButtonClicked = function(val){
             document.getElementById(self.currentAnswerBox).value = val;
-            document.getElementById("btnCheckAnswer").focus();
+            document.getElementById("btnPlayAgain").focus();
             self.answers[self.currentRow][self.currentCol] = val;
             getGameStatus();
-
-
         }
 
         self.changeAnswerBox = function(){
@@ -195,11 +193,24 @@
             self.gameStatus = 0;
         }
 
+        self.playPauseGame = function($event){
+            if(self.gameStatus === 1){
+                self.gameStatus = 2;
+                clock.stop();
+                $event.target.textContent ="Play";
+            }
+            else {
+                self.gameStatus = 1;
+                clock.start();
+                $event.target.textContent ="Pause";
+            }
+
+        }
         function getGameStatus(){
             var result = validateGrid();
             if(result == ""){
                 clock.stop();
-                self.gameStatus = 2;
+                self.gameStatus = 3;
             }
             else{
                 console.log(result);
