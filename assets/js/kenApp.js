@@ -79,6 +79,7 @@
     function kenController(APIService){
         var self = this;
 
+        self.gameStatus = 0; // 0 - not started, 1 - playing, 2- finished
         self.currentPosition = 0;
         self.currentAnswerBox = "";
 
@@ -123,6 +124,7 @@
         self.PlayClicked = function(b){
             //self.input.size = b;
             //alert("size: " + self.input.size + " ops: " + self.input.ops + " level: " + self.input.level);
+            clock.reset();
             getCustomKenken().then(function(success){
                 self.game = success.data;
                 self.viewBoard = success.data.viewBoard;
@@ -132,7 +134,8 @@
                     self.inputButtons.push(i);
                     self.answers[i-1] = new Array(self.viewBoard.length);
                 }
-                console.log(self.answers.length);
+                self.gameStatus = 1;
+                clock.start();
 
             }, function(error){
                 alert(error);
@@ -153,20 +156,26 @@
             document.getElementById(id).focus();
         }
 
-        self.selectAnswerBox =function(pos){
-            self.currentAnswerBox  = "answerTxt" + pos;
-            self.currentPosition = pos;
+        self.selectAnswerBox =function(cell, r, c){
+            self.currentAnswerBox  = "answerTxt" + cell.position;
+            self.currentPosition = cell.position;
+            self.currentRow = r;
+            self.currentCol = c;
+
         }
+
 
         self.inputButtonClicked = function(val){
             document.getElementById(self.currentAnswerBox).value = val;
             document.getElementById("btnCheckAnswer").focus();
+            self.answers[self.currentRow][self.currentCol] = val;
+            getGameStatus();
 
 
         }
 
         self.changeAnswerBox = function(){
-            console.log(validateGrid());
+            getGameStatus();
         }
 
         self.globalClick = function($event){
@@ -180,6 +189,21 @@
                 self.currentAnswerBox = "";
             }
 
+        }
+
+        self.playAgain = function(){
+            self.gameStatus = 0;
+        }
+
+        function getGameStatus(){
+            var result = validateGrid();
+            if(result == ""){
+                clock.stop();
+                self.gameStatus = 2;
+            }
+            else{
+                console.log(result);
+            }
         }
 
         function isGridComplete(){
@@ -209,8 +233,11 @@
                 else {
                     return "Some value(s) are not unique accross row or column."
                 }
-                return "";
             }
+            else {
+                return "grid not complete";
+            }
+            return "";
         }
 
         function  validateCages(){

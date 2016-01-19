@@ -11,7 +11,8 @@
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css" rel="stylesheet"
           integrity="sha256-3dkvEK0WLHRJ7/Csr0BZjAWxERc5WH7bdeUya2aXxdU= sha512-+L4yy6FRcDGbXJ9mPG8MT/3UCDzwR9gPeyFNMCtInsol++5m3bk2bXWKdZjvybmohrAsn3Ua5x8gfLnbE1YkOg=="
           crossorigin="anonymous">
-    <link rel="stylesheet" href="/assets/css/custom.css">
+    <link rel="stylesheet" href="/assets/css/custom.css" />
+    <link rel="stylesheet" href="/assets/css/flipclock.css">
     <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!--[if lt IE 9]>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js"></script>
@@ -78,7 +79,7 @@
     ================================================== -->
     <div class="clearfix">
         <div class="row">
-            <div class="col-lg-12">
+            <!--<div class="col-lg-12">
                 <div class="bs-component">
                     <nav class="navbar navbar-default">
                         <div class="container-fluid">
@@ -109,10 +110,10 @@
                 </div>
 
 
-            </div>
+            </div>-->
             <div class="col-lg-12">
                 <div class="col-lg-4 col-md-4">
-                    <div class="panel panel-info">
+                    <div class="panel panel-info" ng-show="kc.gameStatus === 0">
                         <div class="panel-heading">
                             <h3 class="panel-title">Select Size, Operations & Level</h3>
                         </div>
@@ -142,7 +143,14 @@
                             <div class="row well well-sm cwell pull-right">
                                 <button class="btn btn-primary bth-lg" ng-click="kc.PlayClicked()"> Play</button>
                             </div>
+
                         </div>
+                    </div>
+                    <div class="row" ng-show="kc.gameStatus >= 1">
+                        <div class="your-clock"></div>
+                    </div>
+                    <div class="row"   ng-show="kc.gameStatus === 2">
+                        <button id="btnPlayAgain" class="btn btn-primary bth-lg" ng-click="kc.playAgain()"> Play Again</button>
                     </div>
                 </div>
                 <div class="col-lg-8 col-md-8 ">
@@ -150,7 +158,9 @@
                         <table cellspacing="0" cellpadding="0" class="rcTable">
                             <tr>
                                 <td ng-repeat="b in kc.inputButtons" style="padding-bottom: 5px; text-align: center">
-                                    <button type="button" id="answerBtn{{b}}" ng-disabled="kc.currentPosition == 0"
+                                    <button type="button" id="answerBtn{{b}}"
+                                            ng-disabled="kc.currentPosition == 0"
+                                            ng-show="kc.gameStatus === 1"
                                             class="btn btn-primary btn-lg btn-circle" ng-click="kc.inputButtonClicked(b)">{{b}}</button>
                                     <br/>
                                 </td>
@@ -167,8 +177,9 @@
                                                id="answerTxt{{col.position}}" name="answerTxt{{col.position}}"
                                                ng-model="kc.answers[$parent.$index][$index]"
                                                ng-keypress="kc.isNumber($event)"
-                                               ng-focus="kc.selectAnswerBox(col.position)"
+                                               ng-focus="kc.selectAnswerBox(col, $parent.$index, $index)"
                                                ng-change="kc.changeAnswerBox()"
+                                               ng-disabled="kc.gameStatus !== 1"
                                         />
                                     </div>
                                 </td>
@@ -232,11 +243,17 @@
         crossorigin="anonymous"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/1.0.3/ui-bootstrap-tpls.min.js"></script>
+<script src="/assets/js/flipclock.min.js"></script>
 <script src="/assets/js/kenApp.js"></script>
 <script async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
 <script>
     (adsbygoogle = window.adsbygoogle || []).push({});
 </script>
-
+<script>
+    var clock = $('.your-clock').FlipClock({
+        autoStart: false,
+        clockFace: 'MinuteCounter'
+    });
+</script>
 </body>
 </html>
